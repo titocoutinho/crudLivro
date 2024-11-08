@@ -16,6 +16,15 @@ public class Livro {
         this.titulo = titulo;
     }
 
+    public Livro(long id, String titulo, String isbn, String editora, int anoPublicacao) {
+        this.id = id ;
+        this.titulo = titulo;
+        this.isbn = isbn;
+        this.editora = editora;
+        this.anoPublicacao = anoPublicacao;
+
+    }
+
 
     public String getTitulo() {
         return titulo;

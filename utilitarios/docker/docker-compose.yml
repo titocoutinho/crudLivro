@@ -5,7 +5,7 @@ services:
     image: postgres:latest
     container_name: postgres-container
     environment:
-      POSTGRES_DB: solicitacao_db
+      POSTGRES_DB: livrosdb
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: admin
     ports:
