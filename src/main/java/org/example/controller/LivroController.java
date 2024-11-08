@@ -1,8 +1,8 @@
 package org.example.controller;
 
 import org.example.entidade.Livro;
+import org.example.repository.LivroAutorRepository;
 import org.example.repository.LivroRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,8 +11,15 @@ import java.util.List;
 @RequestMapping("/api/livros")
 public class LivroController {
 
-    @Autowired
-    private LivroRepository livroRepository;
+
+    private final LivroRepository livroRepository;
+    private final LivroAutorRepository livroAutorRepository;
+
+
+    public LivroController(LivroRepository livroRepository, LivroAutorRepository livroAutorRepository){
+        this.livroRepository = livroRepository;
+        this.livroAutorRepository = livroAutorRepository;
+    }
 
     @GetMapping
     public List<Livro> getAllLivros() {
@@ -38,5 +45,17 @@ public class LivroController {
     @DeleteMapping("/{id}")
     public int deleteLivro(@PathVariable Long id) {
         return livroRepository.deleteById(id);
+    }
+
+    // Endpoint para obter livros por autor
+    @GetMapping("/por-autor/{autorId}")
+    public List<Livro> getLivrosPorAutor(@PathVariable("autorId") int autorId) {
+        return livroAutorRepository.findLivrosByAutorId(autorId);
+    }
+
+    // Endpoint para obter todos os livros por todos os autores
+    @GetMapping("/todos-autores")
+    public List<Livro> getTodosLivrosPorTodosAutores() {
+        return livroRepository.findAllLivrosComAutores();
     }
 }
